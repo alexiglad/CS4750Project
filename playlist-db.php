@@ -75,7 +75,8 @@ function selectAllSongsInPlaylist($pid){
 function listAllPlaylists(){
     //this is a temporary function just for the EC milestone, people will access playlists from profiles
     global $db;
-    $query = "select * from createplaylist";
+    $query = "SELECT playlist.name 
+              FROM createplaylist JOIN playlist ON playlist.pid = createplaylist.pid";
     $statement = $db->prepare($query);//allows for precompiling of queries
     $statement->execute();
     $results = $statement->fetchAll();

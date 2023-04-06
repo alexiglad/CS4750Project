@@ -1,12 +1,9 @@
 <?php
 require("connect-db.php");
-
 require("playlist-db.php");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-
-    
 
 var_dump($_POST);
     $pid = isset($_POST['pid']) ? $_POST['pid'] : null;
@@ -21,7 +18,6 @@ var_dump($_POST);
         deleteSongFromPlaylist($_POST['sid_to_delete'], $_POST['pid']);
   
     } 
-
 
     // Your code to manage the playlist with the given $pid
     #var_dump($songs);
