@@ -1,6 +1,6 @@
 <?php
-require("connect-db.php");
-require("playlist-db.php");
+require_once("connect-db.php");
+require_once("playlist-db.php");
 
 
 $playlists = listAllPlaylists();
