@@ -9,7 +9,13 @@
 </head>
 
 <body>
-<?php include 'list_playlists.php';?>
+    <div style="background-color: #f3f3f3; width: 25%; height: 100vh; float:left; padding: 3%; border-right: 0.5px solid rgb(207, 207, 207);">  
+    <?php include 'userinfo.php';?>
+    </div>  
+
+    <div style="background-color: white; width:75%; height: 100vh; float:left; padding: 3%;">  
+    <?php include 'list_playlists.php';?>
+    </div>
 </body>
 
 </html>
