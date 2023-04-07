@@ -26,9 +26,9 @@ $playlists = listAllPlaylists();
         <div class = "cards" style="margin:2%;">
             <?php foreach ($playlists as $playlist): ?>
                 <div class="card" style="background-color: #f3f3f3; width: 10rem; height: 5rem;">
-                <form action="manage_playlist.php" method="post">
+                <form action="manage_playlist.php" method="post" class = "mx-auto my-auto">
                     <input type="hidden" name="pid" value="<?php echo htmlspecialchars($playlist['pid']); ?>">
-                    <input type="submit" value="<?php echo htmlspecialchars($playlist['uid']); ?>">
+                    <input type="submit" value="<?php echo htmlspecialchars($playlist['name']); ?>">
                 </form>
                 </div>
             <?php endforeach; ?>

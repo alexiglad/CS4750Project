@@ -13,6 +13,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     else{
         $songs = selectAllSongsInPlaylist($pid);
+        $playlistname = getPlaylistName($pid);
+        //var_dump($playlistname);
+        //var_dump($songs);
     }
     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete")){
         deleteSongFromPlaylist($_POST['sid_to_delete'], $_POST['pid']);
@@ -52,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     <a class="backbutton" aria-current="page" href="index.php">Back to Playlists</a>
     <br> <br>
 
-    <h1> PLAYLIST NAME HERE </h1>
+    <h1><?php foreach ($playlistname as $name) {echo $name['name'], "\n";} ?></h1>
 
     <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:97%">
