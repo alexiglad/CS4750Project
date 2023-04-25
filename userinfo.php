@@ -26,7 +26,6 @@ require_once("connect-db.php");
 <body>
 
   <div class="sidebar">
-    <img src="images/icon.png">
     <h2 class="mx-auto"> [USERNAME] </h2>
     <br><br>
     <div class="card card-body" style="background-color: #ffffff;">
