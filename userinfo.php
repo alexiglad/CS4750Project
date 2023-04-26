@@ -1,5 +1,6 @@
 <?php
 require_once("connect-db.php");
+session_start();
 
 ?>
 <head>
@@ -26,7 +27,7 @@ require_once("connect-db.php");
 <body>
 
   <div class="sidebar">
-    <h2 class="mx-auto"> [USERNAME] </h2>
+    <h2 class="mx-auto"> <?php echo $_SESSION['username'] ?> </h2>
     <br><br>
     <div class="card card-body" style="background-color: #ffffff;">
         <div class = "card-text"> 
