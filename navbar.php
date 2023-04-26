@@ -43,7 +43,7 @@
     </form>
     <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Log Out</a>
+          <a class="nav-link active" aria-current="page" href="logout.php">Log Out</a>
         </li>
     </ul>
   </div>

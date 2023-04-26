@@ -10,6 +10,8 @@ $playlists = listAllPlaylists();
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
+
+
 <style>
     .cards {
         display: grid;
@@ -17,6 +19,18 @@ $playlists = listAllPlaylists();
         grid-auto-rows: auto;
         grid-gap: 1rem;
     }
+
+    .backbutton{
+    text-decoration: none;
+    font-weight: bold;
+    color: #6f63ad;
+    margin-bottom: 5%;
+  }
+
+  .backbutton:hover{
+    text-decoration: underline;
+    color: #6f63ad;
+  }
 </style>
 
 <body>
