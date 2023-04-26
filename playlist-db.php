@@ -1,18 +1,17 @@
 <?php
-//have code to insert friend in friend table
-function addSongToPlaylist($name, $pid)
-{
-    global $db;
+// function addSongToPlaylist($name, $pid)
+// {
+//     global $db;
 
-    $query = "insert into playlist value (:pid, :name)";
-    $statement = $db->prepare($query);//allows for precompiling of queries
-    $statement->bindValue(':name', $name);
-    $statement->bindValue(':pid', $pid);
-    $statement->execute();
-    $statement->closeCursor();
+//     $query = "insert into playlist value (:pid, :name)";
+//     $statement = $db->prepare($query);//allows for precompiling of queries
+//     $statement->bindValue(':name', $name);
+//     $statement->bindValue(':pid', $pid);
+//     $statement->execute();
+//     $statement->closeCursor();
 
     
-}
+// }
 // function updateFriend($name, $major, $year)
 // {
 
@@ -93,4 +92,19 @@ function getPlaylistName($pid){
     $statement->closeCursor();
     return $results;
 }
+
+function addSongToPlaylist($sid, $pid) {
+    global $db;
+
+    $query = "INSERT INTO isadded (pid, sid) VALUES (:pid, :sid)";
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':sid', $sid);
+    $statement->bindValue(':pid', $pid);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+
+
 ?>
