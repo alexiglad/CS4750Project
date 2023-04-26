@@ -1,7 +1,7 @@
 <?php
-require_once("connect-db.php");
-require_once("search-db.php");
-require_once("playlist-db.php");
+require_once("db_interfacing/connect-db.php");
+require_once("db_interfacing/search-db.php");
+require_once("db_interfacing/playlist-db.php");
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' || (isset($_GET['query']) && !empty($_GET['query'])))
@@ -72,18 +72,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || (isset($_GET['query']) && !empty($_GE
     <div class="cards" style="margin:2%;">
         <h2>Songs</h2>
            
-        <?php foreach ($songs as $song): ?>
-        
-            <div class="card" style="background-color: #f3f3f3; width: 90%; height: 3rem; display:inline-block; ">
-                <p style="float:left; padding-left: 1rem; line-height: 3rem;" class="mx-auto my-auto"><?php echo htmlspecialchars($song['name']); ?></p>
-                <form style = "float:right; padding-right: 1rem; line-height: 3rem;" action="add_to_playlist.php" method="post">
-                    <input type="hidden" name="sid" value="<?php echo htmlspecialchars($song['sid']); ?>">
-                    <input type="hidden" name="query" value="<?php echo htmlspecialchars($query); ?>">
-                    <input type="submit" value="Add to Playlist">
-                </form>
-            </div>
-           
-        <?php endforeach; ?>
+            <?php foreach ($songs as $song): ?>
+            
+                <div class="card" style="background-color: #f3f3f3; width: 90%; height: 3rem; display:inline-block; ">
+                    <p style="float:left; padding-left: 1rem; line-height: 3rem;" class="mx-auto my-auto"><?php echo htmlspecialchars($song['name']); ?> - <?php echo htmlspecialchars($song['username']); ?></p>
+                    <form style = "float:right; padding-right: 1rem; line-height: 3rem;" action="add_to_playlist.php" method="post">
+                        <input type="hidden" name="sid" value="<?php echo htmlspecialchars($song['sid']); ?>">
+                        <input type="hidden" name="query" value="<?php echo htmlspecialchars($query); ?>">
+                        <input type="submit" value="Add to Playlist">
+                    </form>
+                </div>
+            
+            <?php endforeach; ?>
 
         <br>
         <h2>Playlists</h2>

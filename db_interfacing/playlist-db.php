@@ -1,43 +1,33 @@
 <?php
-// function addSongToPlaylist($name, $pid)
-// {
-//     global $db;
 
-//     $query = "insert into playlist value (:pid, :name)";
-//     $statement = $db->prepare($query);//allows for precompiling of queries
-//     $statement->bindValue(':name', $name);
-//     $statement->bindValue(':pid', $pid);
-//     $statement->execute();
-//     $statement->closeCursor();
+function ownsPlaylist($uid, $pid){
+    global $db;
 
-    
-// }
-// function updateFriend($name, $major, $year)
-// {
+    $query = "SELECT COUNT(*) FROM createplaylist WHERE createplaylist.uid = :uid AND createplaylist.pid = :pid";
 
-//     global $db;
+    $statement = $db->prepare($query);//allows for precompiling of queries
+    $statement->bindValue(':uid', $uid);
+    $statement->bindValue(':pid', $pid);
+    $statement->execute();
+    $count = $statement->fetchColumn();
+    $statement->closeCursor();
+    return $count >= 1;
+}
 
-//     $query = "update friends set major = :newMajor, year = :newYear where name = :oldName";
-//     $statement = $db->prepare($query);//allows for precompiling of queries
-//     $statement->bindValue(':oldName', $name);
-//     $statement->bindValue(':newMajor', $major);
-//     $statement->bindValue(':newYear', $year);
-//     $statement->execute();
-//     $statement->closeCursor();
+function updatePlaylistName($pid, $name)
+{
+
+    global $db;
+
+    $query = "update playlist set name = :name where pid = :pid";
+    $statement = $db->prepare($query);//allows for precompiling of queries
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':pid', $pid);
+    $statement->execute();
+    $statement->closeCursor();
  
-// }
-// function getFriendByName($name)
-// {
-//     global $db;
+}
 
-//     $query = "select * from friends where name = :name";
-//     $statement = $db->prepare($query);//allows for precompiling of queries
-//     $statement->bindValue(':name', $name);
-//     $statement->execute();
-//     $result = $statement->fetch();
-//     $statement->closeCursor();
-//     return $result;
-// }
 function deleteSongFromPlaylist($sid, $pid)
 {
 
@@ -71,7 +61,6 @@ function selectAllSongsInPlaylist($pid){
 }
 
 function listAllPlaylists(){
-    //this is a temporary function just for the EC milestone, people will access playlists from profiles
     global $db;
     $query = "SELECT createplaylist.*, playlist.name 
               FROM createplaylist JOIN playlist ON playlist.pid = createplaylist.pid";

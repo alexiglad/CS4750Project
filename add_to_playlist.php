@@ -1,6 +1,6 @@
 <?php
-require_once("connect-db.php");
-require_once("playlist-db.php");
+require_once("db_interfacing/connect-db.php");
+require_once("db_interfacing/playlist-db.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sid = isset($_POST['sid']) ? $_POST['sid'] : null;

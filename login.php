@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>LOGIN</title>
+    <title>Login</title>
 
 </head>
 
@@ -99,7 +99,7 @@ a:hover{
 
      <form action="login.php" method="post">
 
-        <h2>LOGIN</h2>
+        <h2>Login</h2>
 
         <?php if (isset($_GET['error'])) { ?>
 
@@ -121,9 +121,11 @@ a:hover{
 
 <?php 
 if (isset($_POST['Login'])){
-session_start(); 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-include "connect-db.php";
+require_once("db_interfacing/connect-db.php");
 
 
 if (isset($_POST['username']) && isset($_POST['passw'])) {

@@ -1,7 +1,9 @@
 <?php
-require_once("connect-db.php");
-require_once("playlist-db.php");
-
+require_once("db_interfacing/connect-db.php");
+require_once("db_interfacing/playlist-db.php");
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
@@ -14,14 +16,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     else{
         $songs = selectAllSongsInPlaylist($pid);
         $playlistname = getPlaylistName($pid);
+        //TODO redo this code to check if it is owned based on pid
+        $is_owned = ownsPlaylist($_SESSION['uid'], $pid);
         //var_dump($playlistname);
         //var_dump($songs);
     }
     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete")){
         deleteSongFromPlaylist($_POST['sid_to_delete'], $_POST['pid']);
     } 
+    if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Name")) {
+      updatePlaylistName($_POST['pid'], $_POST['new_name']);
+      $playlistname = getPlaylistName($pid);
 
-    // Your code to manage the playlist with the given $pid
+    }
+  
+
     #var_dump($songs);
 }
 ?>
@@ -57,13 +66,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
     <h1><?php foreach ($playlistname as $name) {echo $name['name'], "\n";} ?></h1>
 
+    <?php if ($is_owned): ?>
+        <form action="manage_playlist.php" method="post">
+            <label for="new_name">New playlist name:</label>
+            <input type="text" name="new_name" id="new_name" required>
+            <input type="submit" name="actionBtn" value="Update Name" class="btn btn-primary" />
+            <input type="hidden" name="pid" value="<?php echo $_POST['pid']; ?>" />
+        </form>
+    <?php endif; ?>
+
     <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:97%">
       <thead>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
       <tr style="background-color:#6f63ad; color: white;">
-        <th width="30%">Song Name        
-        <th width="30%">Delete? 
+        <th width="30%">Song Name 
+        <?php if ($is_owned): ?>
+          <th width="30%">Delete? 
+        <?php endif; ?>       
       </tr>
       </thead>
 
@@ -72,7 +92,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         <td><?php echo $characteristic['sname']; ?></td> 
         <td>
           <form action = "manage_playlist.php" method="post">
-            <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger" />
+            
+            <?php if ($is_owned): ?>
+                <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger" />
+            <?php endif; ?>
             <input type="hidden" name="sid_to_delete" value="<?php echo $characteristic['sid']; ?>" />
             <input type="hidden" name="pid" value="<?php echo $_POST['pid']; ?>" />
           </form>

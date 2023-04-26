@@ -36,7 +36,7 @@
 
 <nav class="navbar">
   <div class="container-fluid" >
-  <a class="navbar-brand" style="font-weight: bold; color: #ffffff;" href="#">HoosListening</a>
+  <a class="navbar-brand" style="font-weight: bold; color: #ffffff;" href="logout.php">HoosListening</a>
     <form class="d-flex" action="search.php" method="POST">
       <input class="form-control me-2" style="width:430px;" type="search" placeholder="Search" aria-label="Search" name="query">
       <button class="btn" style="color: #ffffff;" type="submit">Search</button>

@@ -4,7 +4,7 @@ function getSongs($substr){
 
     global $db;
 
-    $query = "SELECT song.name, song.sid FROM song  
+    $query = "SELECT song.name, song.sid, users.username FROM song NATURAL JOIN createsong NATURAL JOIN users 
               WHERE song.name like :substr";
 
     $statement = $db->prepare($query);
