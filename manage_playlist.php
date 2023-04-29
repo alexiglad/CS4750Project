@@ -52,14 +52,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     color: #6f63ad;
   }
 
+  body {
+  height: 100%;
+  width: 100%;
+}
+
+  .fullheight{
+    overflow-y: scroll;
+}
+
 </style>
 
 <body>
-  <div style="background-color: #f3f3f3; width: 25%; height: 100vh; float:left; padding: 3%; border-right: 0.5px solid rgb(207, 207, 207);">  
+  <div class = "fullheight" style="background-color: #f3f3f3; width: 25%; height: 90vh; float:left; padding: 3%; border-right: 0.5px solid rgb(207, 207, 207);">  
     <?php include 'userinfo.php';?>
   </div>  
 
-  <div style="background-color: white; width:75%; height: 100vh; float:left; padding: 3%;">  
+  <div class="fullheight" style="background-color: white; width:75%; height: 90vh; float:left; padding: 3%;">  
 
     <a class="backbutton" aria-current="page" href="index.php">Back to Playlists</a>
     <br> <br>
@@ -70,11 +79,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         <form action="manage_playlist.php" method="post">
             <label for="new_name">New playlist name:</label>
             <input type="text" name="new_name" id="new_name" required>
-            <input type="submit" name="actionBtn" value="Update Name" class="btn btn-primary" />
+            <input type="submit" name="actionBtn" value="Update Name" style="padding: 4px; color: black; border: 1px solid #6f63ad; background-color:#d5d1eb;" />
             <input type="hidden" name="pid" value="<?php echo $_POST['pid']; ?>" />
         </form>
     <?php endif; ?>
-
+    <br>
     <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:97%">
       <thead>

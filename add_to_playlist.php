@@ -39,26 +39,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         grid-gap: 1rem;
     }
 
+    
+  body {
+    height: 100%;
+    width: 100%;
+    }
+
+    .fullheight{
+        overflow-y: scroll;
+    }
+
+    input[type=submit] {
+        background-color: #d5d1eb; 
+        width: 8rem; 
+        height: 3rem;
+        border: none;
+        text-decoration: none;
+    }
+
 </style>
 
 <body>
-<div style="background-color: #f3f3f3; width: 25%; height: 100vh; float:left; padding: 3%; border-right: 0.5px solid rgb(207, 207, 207);">  
+<div class="fullheight" style="background-color: #f3f3f3; width: 25%; height: 90vh; float:left; padding: 3%; border-right: 0.5px solid rgb(207, 207, 207);">  
     <?php include 'userinfo.php';?>
   </div>  
 
-  <div style="background-color: white; width:75%; height: 100vh; float:left; padding: 3%;">  
+  <div class="fullheight" style="background-color: white; width:75%; height: 90vh; float:left; padding: 3%;">  
     <h1>Add Song to Playlist</h1>
     <a class="backbutton" aria-current="page" href="index.php">Back to Profile</a>
     <br><br>
-    
+
     <div class="cards" style="margin:2%;">
         <?php foreach ($playlists as $playlist): ?>
-            <div class="card" style="background-color: #f3f3f3; width: 10rem; height: 5rem;">
+            <div class="card" style="background-color: #d5d1eb; width: 10rem; height: 5rem;">
                 <form action="search.php" method="post" class="mx-auto my-auto">
                     <input type="hidden" name="sid" value="<?php echo htmlspecialchars($sid); ?>">
                     <input type="hidden" name="pid" value="<?php echo htmlspecialchars($playlist['pid']); ?>">
                     <input type="hidden" name="query" value="<?php echo htmlspecialchars($query); ?>">
-                    <input type="submit" value="<?php echo htmlspecialchars($playlist['name']); ?>">
+                    <input type="submit" value="<?php echo htmlspecialchars($playlist['name']); ?>" >
                 </form>
             </div>
         <?php endforeach; ?>

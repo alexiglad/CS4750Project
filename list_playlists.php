@@ -34,13 +34,18 @@ $playlists = listAllPlaylists();
         text-decoration: underline;
         color: #6f63ad;
     }
+    input[type=submit] {
+        background-color: #d5d1eb; 
+        width: 8rem; 
+        height: 3rem;
+        border: none;
+        text-decoration: none;
+    }
 </style>
 <body>
-    <h1>About</h1>
-
     <?php if (!empty($listener_profile)): ?>
         
-        <h2>Listener Profile</h2>
+        <h1>Listener Profile</h1>
 
         <p><strong>Favorite Genre:</strong> <?php echo htmlspecialchars($listener_profile[0]['favorite_genre']); ?></p>
         <p><strong>Favorite Artist:</strong> <?php echo htmlspecialchars($listener_profile[0]['favorite_artist']); ?></p>
@@ -49,7 +54,8 @@ $playlists = listAllPlaylists();
     <?php endif; ?>
 
     <?php if (!empty($artist_profile)): ?>
-        <h2>Artist Profile</h2>
+        <hr>
+        <h1>Artist Profile</h1>
         <p><strong>Studio:</strong> <?php echo htmlspecialchars($artist_profile[0]['studio']); ?></p>
         <p><strong>Genre:</strong> <?php echo htmlspecialchars($artist_profile[0]['genre']); ?></p>
     <?php endif; ?>
@@ -71,10 +77,10 @@ $playlists = listAllPlaylists();
     }
     ?>
 
-    <h2>Your Playlists</h2>
+    <h3 style="font-weight: normal;">Your Playlists</h3>
     <div class="cards" style="margin:2%;">
         <?php foreach ($owned_playlists as $playlist): ?>
-            <div class="card" style="background-color: #f3f3f3; width: 10rem; height: 5rem;">
+            <div class="card" style="background-color: #d5d1eb; width: 10rem; height: 5rem;">
                 <form action="manage_playlist.php" method="post" class="mx-auto my-auto">
                     <input type="hidden" name="pid" value="<?php echo htmlspecialchars($playlist['pid']); ?>">
                     <input type="hidden" name="is_owned" value="1">
@@ -84,10 +90,10 @@ $playlists = listAllPlaylists();
         <?php endforeach; ?>
     </div>
 
-    <h2>Playlist Discovery</h2>
+    <h3 style="font-weight: normal;">Playlist Discovery</h3>
     <div class="cards" style="margin:2%;">
         <?php foreach ($unowned_playlists as $playlist): ?>
-            <div class="card" style="background-color: #f3f3f3; width: 10rem; height: 5rem;">
+            <div class="card" style="background-color: #d5d1eb; width: 10rem; height: 5rem;">
                 <form action="manage_playlist.php" method="post" class="mx-auto my-auto">
                     <input type="hidden" name="pid" value="<?php echo htmlspecialchars($playlist['pid']); ?>">
                     <input type="hidden" name="is_owned" value="0">

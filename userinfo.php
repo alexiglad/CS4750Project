@@ -29,20 +29,20 @@ if (session_status() == PHP_SESSION_NONE) {
 </style>
 <body>
 <div class="sidebar">
-    <h2 class="mx-auto"><?php echo $_SESSION['username'] ?></h2>
-    <br><br>
-    <div class="card card-body" style="background-color: #ffffff;">
+
+    <h2 class="mx-auto" style="padding-top:4%;"><?php echo $_SESSION['username'] ?></h2>
+    <br>
+    <div class="card card-body text-center" style="background-color: #ffffff; width: 15rem;">
         <div class="card-text">
-            <div class="row">
                 <!-- Friends Column -->
-                <div class="col">
-                    <h4>Friends</h4>
                     <?php
                     $friends = getFriends($_SESSION['uid']);
 
                     // Loop through friends and display each friend's username
                     if (!empty($friends)) {
-                        echo 'Total friends: ' . count($friends) . '<br>';
+                        $countfriend = count($friends);
+                        echo "<h4> $countfriend Friends </h4>" . '<hr>'; 
+                        // 'Total friends: ' . count($friends) . '<br>';
                         foreach ($friends as $friend) {
                             if ($friend['uid1'] == $_SESSION['uid']) {
                                 echo htmlspecialchars($friend['user2username']);
@@ -55,17 +55,20 @@ if (session_status() == PHP_SESSION_NONE) {
                         echo 'No friends found.';
                     }
                     ?>
-                </div>
-
-
-                <div class="col">
-                    <h4>Liked Songs</h4>
+        </div>
+    </div>
+    <br>
+    <div class="card card-body text-center" style="background-color: #ffffff; width: 15rem;">
+        <div class="card-text">
                     <?php
                     
                     $liked_songs = getLikedSongs($_SESSION['uid']);
 
                     if (!empty($liked_songs)) {
-                        echo 'Total liked songs: ' . count($liked_songs) . '<br>';
+                        //echo 'Total liked songs: ' . count($liked_songs) . '<br>';
+                        $countlikes = count($liked_songs);
+                        echo "<h4> $countlikes Liked Songs </h4>" . '<hr>'; 
+
                         foreach ($liked_songs as $song) {
                             echo htmlspecialchars($song['name']);
                             echo '<br>';
@@ -74,10 +77,10 @@ if (session_status() == PHP_SESSION_NONE) {
                         echo 'No liked songs found.';
                     }
                     ?>
-                </div>
-            </div>
         </div>
     </div>
+
 </div>
 </body>
+
 </html>
