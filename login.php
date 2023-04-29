@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<!-- Most of this code is taken from https://www.simplilearn.com/tutorials/php-tutorial/php-login-form and modified to work with our database-->
 <html>
 
 <head>
@@ -113,7 +113,7 @@ a:hover{
 
         <label>Password</label>
 
-        <input type="passw" name="passw" placeholder="Password"><br> 
+        <input type="inputpw" name="inputpw" placeholder="Password"><br> 
 
         <button type="submit" name="Login">Login</button>
 
@@ -127,23 +127,22 @@ if (session_status() == PHP_SESSION_NONE) {
 
 require_once("db_interfacing/connect-db.php");
 
-
-if (isset($_POST['username']) && isset($_POST['passw'])) {
+if (isset($_POST['username']) && isset($_POST['inputpw'])) {
 
     function validate($data){
 
-       $data = trim($data);
+        $data = trim($data);
+    
+        $data = stripslashes($data);
+    
+        $data = htmlspecialchars($data);
 
-       $data = stripslashes($data);
-
-       $data = htmlspecialchars($data);
-       
-       return $data;
-    }
+        return $data;
+     }
 
     $username = validate($_POST['username']);
 
-    $passw = validate($_POST['passw']);
+    $inputpw = validate($_POST['inputpw']);
 
     if (empty($username)) {
 
@@ -151,7 +150,7 @@ if (isset($_POST['username']) && isset($_POST['passw'])) {
 
         exit();
 
-    }else if(empty($passw)){
+    }else if(empty($inputpw)){
 
         header("Location: login.php?error=Password is required");
 
@@ -159,14 +158,13 @@ if (isset($_POST['username']) && isset($_POST['passw'])) {
 
     }else{
         
-$sql = "SELECT * FROM users WHERE username='$username' AND passw='$passw'";
+$sql = "SELECT * FROM users WHERE username='$username' AND crypt='$crypt'";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) === 1) {
-
     $row = mysqli_fetch_assoc($result);
 
-    if ($row['username'] === $username && $row['passw'] === $passw) {
+    if ($row['username'] === $username && password_verify($inputpw, $row['crypt'])) {
 
         echo "Logged in!";
 
