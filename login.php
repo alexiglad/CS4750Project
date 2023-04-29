@@ -113,7 +113,7 @@ a:hover{
 
         <label>Password</label>
 
-        <input type="inputpw" name="inputpw" placeholder="Password"><br> 
+        <input type="password" name="inputpw" placeholder="Password"><br> 
 
         <button type="submit" name="Login">Login</button>
 
@@ -157,42 +157,38 @@ if (isset($_POST['username']) && isset($_POST['inputpw'])) {
         exit();
 
     }else{
-        
-$sql = "SELECT * FROM users WHERE username='$username' AND crypt='$crypt'";
-$result = mysqli_query($conn, $sql);
+ 
+$stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
+if(!$stmt){
+    echo "Preparation failed: (" . $conn->errno . ") " . $conn->error;
+}
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (mysqli_num_rows($result) === 1) {
     $row = mysqli_fetch_assoc($result);
+    $hashed_password = $row['crypt'];
 
-    if ($row['username'] === $username && password_verify($inputpw, $row['crypt'])) {
-
+    if ($row['username'] === $username && password_verify($inputpw, $hashed_password)) {
+        // Password is correct
         echo "Logged in!";
-
         $_SESSION['username'] = $row['username'];
-
         $_SESSION['email'] = $row['email'];
-
         $_SESSION['uid'] = $row['uid'];
-
         header("Location: index.php");
-
         exit();
-
-    }else{
-
+    } else {
+        // Incorrect password
         header("Location: login.php?error=Incorect username or password");
-
         exit();
-
     }
-
-}else{
-
+} else {
+    // No user found with the provided username
     header("Location: login.php?error=Incorect username or password");
-
     exit();
-
 }
+
 
 }
 
