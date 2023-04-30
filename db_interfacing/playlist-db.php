@@ -85,7 +85,7 @@ function getPlaylistName($pid){
 function addSongToPlaylist($sid, $pid) {
     global $db;
 
-    $query = "INSERT INTO isadded (pid, sid) VALUES (:pid, :sid)";
+    $query = "INSERT IGNORE INTO isadded (pid, sid) VALUES (:pid, :sid)";
 
     $statement = $db->prepare($query);
     $statement->bindValue(':sid', $sid);
