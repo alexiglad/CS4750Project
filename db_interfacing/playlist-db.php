@@ -85,13 +85,17 @@ function getPlaylistName($pid){
 function addSongToPlaylist($sid, $pid) {
     global $db;
 
-    $query = "INSERT INTO isadded (pid, sid) VALUES (:pid, :sid)";
+    $query = "INSERT IGNORE INTO isadded (pid, sid) VALUES (:pid, :sid)";
 
-    $statement = $db->prepare($query);
-    $statement->bindValue(':sid', $sid);
-    $statement->bindValue(':pid', $pid);
-    $statement->execute();
-    $statement->closeCursor();
+    try {
+        $statement = $db->prepare($query);
+        $statement->bindValue(':sid', $sid);
+        $statement->bindValue(':pid', $pid);
+        $statement->execute();
+        $statement->closeCursor();
+    } catch (PDOException $e) {
+        error_log("PDOException in addSongToPlaylist: " . $e->getMessage());
+    }
 }
 
 

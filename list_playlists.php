@@ -5,6 +5,11 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit;
+} 
+
 $listener_profile = getListenerProfile($_SESSION['uid']); 
 $artist_profile = getArtistProfile($_SESSION['uid']); 
 
