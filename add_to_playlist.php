@@ -1,6 +1,23 @@
 <?php
 require_once("db_interfacing/connect-db.php");
 require_once("db_interfacing/playlist-db.php");
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit;
+} 
+In this code, session_status() == PHP_SESSION_NONE checks if a session has been started. If not, session_start() starts a new session.
+
+The isset($_SESSION['username']) check determines if the 'username' session variable is set. If it's not set, the user is not logged in. If it is set, the user is logged in.
+
+Keep in mind that this is a very
+
+
+
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sid = isset($_POST['sid']) ? $_POST['sid'] : null;
@@ -12,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("No song ID provided.");
     } else {
         $playlists = listAllPlaylists();
+        $owned_playlists = array();
+        foreach ($playlists as $playlist) {
+            if ($playlist['uid'] == $_SESSION['uid']) {
+                $owned_playlists[] = $playlist;
+            }
+        }
     }
 }
 ?>
@@ -70,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <br><br>
 
     <div class="cards" style="margin:2%;">
-        <?php foreach ($playlists as $playlist): ?>
+        <?php foreach ($owned_playlists as $playlist): ?>
             <div class="card" style="background-color: #d5d1eb; width: 10rem; height: 5rem;">
                 <form action="search.php" method="post" class="mx-auto my-auto">
                     <input type="hidden" name="sid" value="<?php echo htmlspecialchars($sid); ?>">
