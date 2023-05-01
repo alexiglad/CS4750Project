@@ -9,13 +9,6 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
     exit;
 } 
-In this code, session_status() == PHP_SESSION_NONE checks if a session has been started. If not, session_start() starts a new session.
-
-The isset($_SESSION['username']) check determines if the 'username' session variable is set. If it's not set, the user is not logged in. If it is set, the user is logged in.
-
-Keep in mind that this is a very
-
-
 
 
 
